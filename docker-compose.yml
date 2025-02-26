@@ -1,0 +1,17 @@
+# docker-compose.yml
+version: '3'
+services:
+  mlflow-server:
+    image: mlflow/mlflow
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./mlruns:/mlflow/mlruns
+    command: mlflow server --host 0.0.0.0 --port 8080
+    
+  flask-app:
+    build: .
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mlflow-server

@@ -1,0 +1,12 @@
+# environment.yml
+name: salary-prediction
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - scikit-learn
+  - mlflow
+  - flask
+  - pandas
+  - numpy
+  - matplotlib

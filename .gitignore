@@ -1,0 +1,27 @@
+# Python-specific ignores
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# MLflow artifacts
+mlruns/
+mlartifacts/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Local dataset
+# Salary_predict.csv
+
+# Environment files (e.g., conda)
+conda.yaml
