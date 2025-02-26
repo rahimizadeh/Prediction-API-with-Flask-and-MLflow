@@ -1,9 +1,7 @@
 # Prediction-API-with-Flask-and-MLflow
-An end-to-end machine learning project demonstrating model lifecycle management with MLflow and production deployment using Flask.
+**An end-to-end machine learning project demonstrating model lifecycle management with MLflow and production deployment using Flask.**
 [![MLflow](https://img.shields.io/badge/MLflow-%23FF6F00.svg?style=for-the-badge&logo=mlflow&logoColor=white)](https://mlflow.org/)
 [![Flask](https://img.shields.io/badge/Flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-
-An end-to-end machine learning project demonstrating model lifecycle management with MLflow and production deployment using Flask.
 
 ## Key Features
 - **MLflow Integration**: Full experiment tracking and model registry
@@ -13,12 +11,13 @@ An end-to-end machine learning project demonstrating model lifecycle management 
 - **CI/CD Ready**: Easily deployable architecture
 
 ## Project Architecture
+``` mermaid
 graph TD  
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[Training Script] -->|Logs to| B[MLflow Tracking Server]  
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B -->|Stores| C[Model Registry]  
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C -->|Serves| D[Flask API]  
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D -->|Responds to| E[Client Applications]  
-
+    A[Training Script] -->|Logs to| B[MLflow Tracking Server]  
+    B -->|Stores| C[Model Registry]  
+    C -->|Serves| D[Flask API]  
+    D -->|Responds to| E[Client Applications]  
+```
 🚀 Getting Started 
   
 &nbsp;&nbsp;&nbsp;**Prerequisites**  
@@ -84,8 +83,23 @@ POST http://localhost:5001/predict
 python Flask_Components/client.py
 ```
 🛠️ MLflow + Flask Integration  
-**The Flask API directly loads models from MLflow Model Registry:**
-Load production-stage model from registry
+``` mermaid
+sequenceDiagram
+    participant T as Training Script
+    participant M as MLflow Server
+    participant F as Flask API
+    participant C as Client
+    
+    T->>M: 1. Log Model (with metadata)
+    M->>M: 2. Register Model in Registry
+    F->>M: 3. Load Production Model
+    C->>F: 4. POST /predict
+    F->>C: 5. Return Prediction
+```
+  
+**The Flask API directly loads models from MLflow Model Registry:** 
+  
+Load production-stage model from registry  
 ``` bash
  model = mlflow.sklearn.load_model("models:/Your_Model/Production")
 ```
@@ -102,4 +116,7 @@ Load production-stage model from registry
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Flask Documentation
 ](https://flask.palletsprojects.com/)  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Sklearn RandomForestRegressor
-](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
+](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)  
+
+  📄 License  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apache License, Version 2.0 - see [LICENSE]([https://chat.deepseek.com/a/chat/s/LICENSE](https://www.apache.org/licenses/LICENSE-2.0)) for details.
