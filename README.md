@@ -20,34 +20,33 @@ graph TD
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D -->|Responds to| E[Client Applications]  
 
 🚀 Getting Started  
-**Prerequisites**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - **Python 3.8+**
+&nbsp;&nbsp;&nbsp;**Prerequisites**  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - **Python 3.8+**  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - **MLflow server (local/remote)**  
-**Required packages:**
+&nbsp;&nbsp;&nbsp;**Required packages:**
+```bash
 pip install -r requirements.txt
-Project Structure
+ ```
+&nbsp;&nbsp;&nbsp;**Project Structure**  
 
-├── MLflow_Components/
-│   ├── RandomForestRegressor.py   # Training with MLflow tracking
-│   └── predict.py                # Model loading from registry
-├── Flask_Components/
-│   ├── Application_Server.py      # REST API endpoint
-│   └── client.py                  # API test client
-└── Position_Salaries.csv          # Sample dataset  
-🔧 MLflow Implementation
-Model Training & Tracking
-bash
-Copy
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── MLflow_Components/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│   &nbsp;&nbsp;&nbsp;├── RandomForestRegressor.py   &nbsp;&nbsp;&nbsp;# Training with MLflow tracking  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│   &nbsp;&nbsp;&nbsp;└── predict.py                &nbsp;&nbsp;&nbsp;# Model loading from registry  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Flask_Components/  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│   &nbsp;&nbsp;&nbsp;├── Application_Server.py      &nbsp;&nbsp;&nbsp;# REST API endpoint  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│  &nbsp;&nbsp;&nbsp;└── client.py                  &nbsp;&nbsp;&nbsp;# API test client  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Position_Salaries.csv          &nbsp;&nbsp;&nbsp;# Sample dataset  
+
+🔧 **MLflow Implementation **  
+&nbsp;&nbsp;&nbsp;**Model Training & Tracking**
+```bash
 python MLflow_Components/RandomForestRegressor.py
-Tracks parameters (n_estimators, random_state)
-
-Logs metrics (OOB score, MSE, R²)
-
-Stores artifacts (plots, decision trees)
-
-Registers model in MLflow Model Registry
-
-MLflow UI
+```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Tracks parameters (n_estimators, random_state)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Logs metrics (OOB score, MSE, R²)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Stores artifacts (plots, decision trees)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Registers model in MLflow Model Registry
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- MLflow UI
 
 Key MLflow Features
 Experiment comparison
