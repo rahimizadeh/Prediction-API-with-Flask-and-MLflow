@@ -119,4 +119,4 @@ Load production-stage model from registry
 ](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)  
 
   📄 License  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apache License, Version 2.0 - see [LICENSE]([https://chat.deepseek.com/a/chat/s/LICENSE](https://www.apache.org/licenses/LICENSE-2.0)) for details.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apache License, Version 2.0 - see  [LICENSE](https://www.apache.org/licenses/LICENSE-2.0)) for details.
