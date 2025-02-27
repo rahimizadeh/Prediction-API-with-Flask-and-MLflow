@@ -41,8 +41,8 @@ with mlflow.start_run():
         print("Original Data:")
         print(df)
 
-        # Correct feature selection
-        X = df[['Level']].values  # Double brackets to keep 2D shape
+    
+        X = df[['Level']].values 
         y = df['Salary'].values
 
         # Log parameters
@@ -53,7 +53,7 @@ with mlflow.start_run():
 
         # Train model
         regressor = RandomForestRegressor(n_estimators=n_estimators, random_state=random_state, oob_score=True)
-        regressor.fit(X, y)  # Use correct features
+        regressor.fit(X, y) 
 
         # Calculate metrics
         oob_score = regressor.oob_score_
