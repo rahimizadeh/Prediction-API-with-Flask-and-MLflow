@@ -1,8 +1,8 @@
 # MLflow Configuration
 mlflow:
   tracking_uri: "http://127.0.0.1:8080"
-  experiment_name: "SalaryPrediction"
-  registered_model_name: "SalaryPredictor"
+  experiment_name: "RandomForestRegressorModel"
+  registered_model_name: "RandomForestRegressorModel"
   registry_stage: "Production"
 
 # Flask Server Configuration
