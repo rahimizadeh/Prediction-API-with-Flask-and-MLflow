@@ -1,5 +1,5 @@
 # environment.yml
-name: salary-prediction
+name: RandomForestRegressorModel
 channels:
   - defaults
 dependencies:
