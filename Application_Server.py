@@ -1,7 +1,7 @@
 # Deploy with a Web Framework (Flask)
 # REST API Deployment
 # This is Server side. Run this code on a Terminal as python Application_Server.py
-
+  
 
 from flask import Flask, request, jsonify
 import mlflow
@@ -25,4 +25,5 @@ def predict():
     return jsonify({"prediction": round(prediction, 2)})
 
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=5001)
