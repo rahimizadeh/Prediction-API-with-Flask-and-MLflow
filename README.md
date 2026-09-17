@@ -1,122 +1,106 @@
-# Prediction-API-with-Flask-and-MLflow
-**An end-to-end machine learning project demonstrating model lifecycle management with MLflow and production deployment using Flask.**
-[![MLflow](https://img.shields.io/badge/MLflow-%23FF6F00.svg?style=for-the-badge&logo=mlflow&logoColor=white)](https://mlflow.org/)
-[![Flask](https://img.shields.io/badge/Flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+# Prediction API with Flask and MLflow
 
-## Key Features
-- **MLflow Integration**: Full experiment tracking and model registry
-- **Flask REST API**: Production-ready model serving
-- **Model Versioning**: Track different model versions in registry
-- **Visualization**: Built-in result plotting and tree visualization
-- **CI/CD Ready**: Easily deployable architecture
+A small end-to-end ML project that trains a Random Forest salary regressor, tracks/registers it with MLflow, and serves predictions through Flask.
 
-## Project Architecture
-``` mermaid
-graph TD  
-    A[Training Script] -->|Logs to| B[MLflow Tracking Server]  
-    B -->|Stores| C[Model Registry]  
-    C -->|Serves| D[Flask API]  
-    D -->|Responds to| E[Client Applications]  
+## Dataset
+
+The committed dataset is `Salary_predict.csv` with these features:
+
+- `experience`
+- `age`
+- `interview_score`
+- target: `Salary`
+
+## Local setup
+
+```bash
+python -m venv .venv
 ```
-🚀 Getting Started 
-  
-&nbsp;&nbsp;&nbsp;**Prerequisites**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - Python 3.8+  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - MLflow server (local/remote)  
-&nbsp;&nbsp;&nbsp;**Required packages:**
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+Install dependencies:
+
 ```bash
 pip install -r requirements.txt
- ```
-&nbsp;&nbsp;&nbsp;**Project Structure**  
+```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── MLflow_Components/  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│   &nbsp;&nbsp;&nbsp;├── RandomForestRegressor.py   &nbsp;&nbsp;&nbsp;# Training with MLflow tracking  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│   &nbsp;&nbsp;&nbsp;└── predict.py                &nbsp;&nbsp;&nbsp;# Model loading from registry  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── Flask_Components/  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│   &nbsp;&nbsp;&nbsp;├── Application_Server.py      &nbsp;&nbsp;&nbsp;# REST API endpoint  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│  &nbsp;&nbsp;&nbsp;└── client.py                  &nbsp;&nbsp;&nbsp;# API test client  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── Position_Salaries.csv          &nbsp;&nbsp;&nbsp;# Sample dataset  
+## Run MLflow
 
-🔧 MLflow Implementation  
-  
-&nbsp;&nbsp;&nbsp;**Model Training & Tracking**
 ```bash
-python MLflow_Components/RandomForestRegressor.py
+mlflow server --host 127.0.0.1 --port 8080
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Tracks parameters (n_estimators, random_state)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Logs metrics (OOB score, MSE, R²)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Stores artifacts (plots, decision trees)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Registers model in MLflow Model Registry  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- MLflow UI  
-  
-**Key MLflow Features**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Experiment comparison  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Model versioning  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Artifact storage  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Model staging (Staging/Production/Archived)  
 
-🌐 Flask API Deployment  
+In another terminal, train and register the model:
 
-&nbsp;&nbsp;&nbsp; **Start REST API Server**
 ```bash
-python Flask_Components/Application_Server.py
-```  
-&nbsp;&nbsp;&nbsp; **API Endpoint**  
-```bash
-POST http://localhost:5001/predict
+python "Random_Forest_Regressor MLflow.py"
 ```
-&nbsp;&nbsp;&nbsp; **Content-Type: application/json**  
-```bash
 
-{
-    "level": 6.5
-}
-```
-&nbsp;&nbsp;&nbsp; Example Response  
-```bash
-{
-   "prediction": 175000.0
-}
-```
-**Test Client**
-```bash
-python Flask_Components/client.py
-```
-🛠️ MLflow + Flask Integration  
-``` mermaid
-sequenceDiagram
-    participant T as Training Script
-    participant M as MLflow Server
-    participant F as Flask API
-    participant C as Client
-    
-    T->>M: 1. Log Model (with metadata)
-    M->>M: 2. Register Model in Registry
-    F->>M: 3. Load Production Model
-    C->>F: 4. POST /predict
-    F->>C: 5. Return Prediction
-```
-  
-**The Flask API directly loads models from MLflow Model Registry:** 
-  
-Load production-stage model from registry  
-``` bash
- model = mlflow.sklearn.load_model("models:/Your_Model/Production")
-```
-📈 Model Lifecycle Management  
-**Develop model in experiments**  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. Register best model in registry  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. Promote to Production stage  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Serve through Flask API  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. Monitor and iterate  
+The registered model name is `SalaryRandomForest`. Before serving, assign the alias `champion` to the model version you want to deploy, or override `MODEL_URI` with another valid MLflow model URI.
 
-📚 Resources  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[MLflow Documentation
-](https://mlflow.org/docs/latest/index.html)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Flask Documentation
-](https://flask.palletsprojects.com/)  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Sklearn RandomForestRegressor
-](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)  
+## Run the API
 
-  📄 License  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Apache License, Version 2.0 - see  [LICENSE](https://www.apache.org/licenses/LICENSE-2.0)) for details.
+```bash
+python Application_Server.py
+```
+
+Health check:
+
+```bash
+curl http://127.0.0.1:5001/health
+```
+
+Prediction example:
+
+```bash
+curl -X POST http://127.0.0.1:5001/predict \
+  -H "Content-Type: application/json" \
+  -d '{"experience":4,"age":30,"interview_score":8}'
+```
+
+Or run:
+
+```bash
+python client.py
+```
+
+## Tests
+
+```bash
+pytest -q
+```
+
+The API tests inject a dummy model, so they do not require a running MLflow server.
+
+## Docker
+
+```bash
+docker compose up --build
+```
+
+The Flask container uses `MLFLOW_TRACKING_URI=http://mlflow-server:8080` and `MODEL_URI=models:/SalaryRandomForest@champion`.
+
+## Environment variables
+
+- `MLFLOW_TRACKING_URI`
+- `MLFLOW_EXPERIMENT_NAME`
+- `MLFLOW_MODEL_NAME`
+- `MODEL_URI`
+- `DATA_PATH`
+- `FLASK_HOST`
+- `FLASK_PORT`
+
+## CI
+
+GitHub Actions runs `pytest` on pushes and pull requests using `.github/workflows/ci.yml`.
