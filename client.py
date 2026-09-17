@@ -1,18 +1,16 @@
-# Client side. 
-# Test the API.
-# Run this code in another terminal: python client.py
+"""Simple client for the salary prediction API."""
 
 import requests
+
+payload = {"experience": 4, "age": 30, "interview_score": 8}
 
 try:
     response = requests.post(
         "http://localhost:5001/predict",
-        json={"level": 6.5},
-        timeout= 8  # Fail fast if no connection
+        json=payload,
+        timeout=8,
     )
+    response.raise_for_status()
     print(response.json())
-except requests.exceptions.ConnectionError:
-    print("Server not running!")
-
-
-
+except requests.exceptions.RequestException as exc:
+    print(f"Request failed: {exc}")
