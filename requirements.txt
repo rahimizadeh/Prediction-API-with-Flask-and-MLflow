@@ -1,8 +1,7 @@
-pandas
-numpy
-scikit-learn
-mlflow
-matplotlib
-seaborn
-flask
-python-dotenv
+flask>=3.0,<4
+mlflow>=2.15,<4
+numpy>=1.26,<3
+pandas>=2.2,<3
+scikit-learn>=1.5,<2
+requests>=2.32,<3
+pytest>=8.3,<9
