@@ -1,9 +1,9 @@
 # MLflow Configuration
 mlflow:
   tracking_uri: "http://127.0.0.1:8080"
-  experiment_name: "RandomForestRegressorModel"
-  registered_model_name: "RandomForestRegressorModel"
-  registry_stage: "Production"
+  experiment_name: "SalaryPrediction"
+  registered_model_name: "SalaryRandomForest"
+  model_alias: "champion"
 
 # Flask Server Configuration
 flask:
@@ -13,12 +13,11 @@ flask:
 
 # Model Configuration
 model:
-  n_estimators: 10
-  random_state: 0
-  features: ["Level"]
+  n_estimators: 200
+  random_state: 42
+  features: ["experience", "age", "interview_score"]
   target: "Salary"
 
 # Path Configuration
 paths:
-  data: "./Position_Salaries.csv"
-  artifacts: "./artifacts"
+  data: "./Salary_predict.csv"
